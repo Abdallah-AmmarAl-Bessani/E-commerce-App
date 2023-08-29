@@ -19,7 +19,7 @@
 
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        <a asp-controller="Product" asp-action="Product" asp-route-departmentID="@item.ID" > @Html.DisplayFor(modelItem => item.Name)</a>
                     </td>
                     <td>
                         <a asp-action="DepartmentDetails" asp-route-departmentId="@item.ID" asp-route-categoryId="@item.CategoryID">Details</a>

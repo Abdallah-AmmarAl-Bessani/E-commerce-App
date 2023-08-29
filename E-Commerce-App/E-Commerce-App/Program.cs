@@ -25,9 +25,10 @@ namespace E_Commerce_App
 
             builder.Services.AddTransient<ICategory, CategoryService>();
             builder.Services.AddTransient<IDepartment, DepartmentService>();
+			builder.Services.AddTransient<IProduct, ProductServices>();
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+			// Add services to the container.
+			builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             var app = builder.Build();
 
