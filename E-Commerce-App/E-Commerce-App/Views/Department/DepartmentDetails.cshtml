@@ -25,8 +25,8 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "EditDepartment", new { ID = Model.ID , CategoryID = Model.CategoryID})
-    @Html.ActionLink("Delete", "DeleteDepartment", new { departmentId = Model.ID , categoryId = Model.CategoryID})
+    @Html.ActionLink("Edit", "EditDepartment", new { ID = Model.ID })
+    @Html.ActionLink("Delete", "DeleteDepartment", new { departmentId = Model.ID})
     <a asp-action="Departments"
-       asp-route-CateogryId="@Model.CategoryID">Back to List</a>
+       asp-route-categoryId="@Model.CategoryID">Back to List</a>
 </div>

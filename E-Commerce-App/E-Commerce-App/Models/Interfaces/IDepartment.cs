@@ -6,11 +6,11 @@
 
         Task<List<Department>> GetDepartments(int categoryId);
 
-        Task<Department> GetDepartmentById(int id, int categoryId);
+        Task<Department> GetDepartmentById(int id);
 
-        Task<Department> UpdateDepartment(Department department, int id, int categoryId);
+        Task<Department> UpdateDepartment(Department department, int id);
 
-        Task DeleteDepartment(int id, int categoryId);
+        Task DeleteDepartment(int id);
 
     }
 }

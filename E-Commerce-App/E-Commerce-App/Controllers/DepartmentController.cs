@@ -25,9 +25,9 @@ namespace E_Commerce_App.Controllers
             return View(x);
         }
 
-        public async Task<IActionResult> DepartmentDetails(int departmentId, int categoryId)
+        public async Task<IActionResult> DepartmentDetails(int departmentId)
         {
-            var departmentDetails = await _department.GetDepartmentById(departmentId, categoryId);
+            var departmentDetails = await _department.GetDepartmentById(departmentId);
 
             return View(departmentDetails);
         }
@@ -40,7 +40,7 @@ namespace E_Commerce_App.Controllers
         [HttpPost]
         public async Task<IActionResult> EditDepartment(Department department, int ID, int CategoryID)
         {
-           await _department.UpdateDepartment(department, ID, CategoryID);
+           await _department.UpdateDepartment(department, ID);
 
            return View(department);
         }
@@ -48,7 +48,7 @@ namespace E_Commerce_App.Controllers
 
         public async Task<IActionResult> DeleteDepartment(int departmentId, int categoryId)
         {
-            await _department.DeleteDepartment(departmentId, categoryId);
+            await _department.DeleteDepartment(departmentId);
 
             return RedirectToAction("Departments", new { categoryId });
         }
