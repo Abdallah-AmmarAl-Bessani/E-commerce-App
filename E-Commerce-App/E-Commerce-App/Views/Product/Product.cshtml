@@ -1,0 +1,20 @@
+﻿@model IEnumerable<E_Commerce_App.DTO.ProductDTO>
+
+<ul>
+	@foreach (var pr in Model)
+	{
+		<div>
+			<ul class="d-flex list-unstyled ">
+				<li class="me-4">@pr.Name</li>
+				<li class="me-4">@pr.Quantity</li>
+				<li class="me-4">@pr.Price</li>
+
+			</ul>
+			<a asp-action="ProductDetails" asp-route-id="@pr.ID">Detail</a>
+
+		</div>
+
+	}
+
+
+</ul>
