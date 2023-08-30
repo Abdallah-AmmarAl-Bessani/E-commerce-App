@@ -23,9 +23,9 @@ namespace E_Commerce_App.Models.Services
             return department;
         }
 
-        public async Task DeleteDepartment(int id, int categoryId)
+        public async Task DeleteDepartment(int id)
         {
-            var department = await _dbContext.Department.FindAsync(id,categoryId);
+            var department = await _dbContext.Department.FindAsync(id);
 
             if (department != null)
             {
@@ -35,9 +35,9 @@ namespace E_Commerce_App.Models.Services
             }
         }
 
-        public async Task<Department> GetDepartmentById(int id, int categoryId)
+        public async Task<Department> GetDepartmentById(int id)
         {
-            var departmentDetails = await _dbContext.Department.FindAsync(id, categoryId);
+            var departmentDetails = await _dbContext.Department.FindAsync(id);
 
             return departmentDetails;
         }
@@ -49,9 +49,9 @@ namespace E_Commerce_App.Models.Services
             return departments;
         }
 
-        public async Task<Department> UpdateDepartment(Department department, int id, int categoryId)
+        public async Task<Department> UpdateDepartment(Department department, int id)
         {
-            var departmentDetails = await _dbContext.Department.FindAsync(id, categoryId);
+            var departmentDetails = await _dbContext.Department.FindAsync(id);
 
             if (departmentDetails != null)
             {
