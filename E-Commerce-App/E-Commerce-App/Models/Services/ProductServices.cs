@@ -23,7 +23,7 @@ namespace E_Commerce_App.Models.Services
 				Price = productdto.Price,
 			};
 			_commerceDBContext.Entry(product).State = EntityState.Added;
-			_commerceDBContext.SaveChanges();
+			await _commerceDBContext.SaveChangesAsync();
 			return product;
 		}
 
@@ -62,7 +62,7 @@ namespace E_Commerce_App.Models.Services
 
 		public async Task<Product> GetProductAsync(int ID)
 		{
-			Product product = await _commerceDBContext.Product.FindAsync(ID);
+			Product? product = await _commerceDBContext.Product.FindAsync(ID);
 			if (product == null)
 			{
 				return null;

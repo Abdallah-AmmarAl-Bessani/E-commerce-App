@@ -32,7 +32,7 @@ namespace E_Commerce_App.Controllers
 			return View(product);
 		}
 
-		public async Task<IActionResult> EditProduct(int ID)
+		public IActionResult EditProduct(int ID)
 		{
 			return View(new Product { ID = ID });
 		}
