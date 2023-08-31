@@ -1,5 +1,6 @@
 ﻿using E_Commerce_App.Models;
 using E_Commerce_App.Models.Interfaces;
+using E_Commerce_App.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce_App.Controllers
@@ -27,7 +28,7 @@ namespace E_Commerce_App.Controllers
 
         public IActionResult EditCategory(int ID)
         {
-            return View(new Category { ID = ID});
+            return View(new Category { ID = ID });
         }
 
         [HttpPost]
@@ -38,6 +39,29 @@ namespace E_Commerce_App.Controllers
             return View(category);
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> EditCategory(int id)
+        //{
+        //    Category category = await _category.GetCategoryById(id);
+        //    if (category == null)
+        //    {
+        //        return NotFound(); // Handle category not found
+        //    }
+
+        //    return View(category);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> EditCategory(Category category , int ID)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _category.UpdateCategory( category, ID);
+        //        return RedirectToAction("Index", "Home"); // Redirect after successful update
+        //    }
+
+        //    return View(category); // Show the view with validation errors
+        //}
 
         public async Task<IActionResult> DeleteCategory(int id)
         {
