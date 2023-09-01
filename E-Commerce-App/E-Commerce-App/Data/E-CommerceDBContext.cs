@@ -1,5 +1,6 @@
 ﻿using E_Commerce_App.Models;
 using Microsoft.EntityFrameworkCore;
+using E_Commerce_App.DTO;
 
 namespace E_Commerce_App.Data
 {
@@ -187,5 +188,7 @@ namespace E_Commerce_App.Data
         public DbSet<Department> Department { get; set; }
 
         public DbSet<Product> Product { get; set; }
+
+        public DbSet<E_Commerce_App.DTO.ProductDTO> ProductDTO { get; set; } = default!;
     }
 }

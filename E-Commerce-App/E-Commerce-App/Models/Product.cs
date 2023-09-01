@@ -9,6 +9,6 @@ namespace E_Commerce_App.Models
         public int Price { get; set; }
         public int Quantity { get; set; }
         public int DepartmentID { get; set; }
-        public Department Department { get; set; } // Navigation property
+        public Department? Department { get; set; } // Navigation property
     }
 }
