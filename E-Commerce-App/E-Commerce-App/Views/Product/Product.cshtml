@@ -1,4 +1,17 @@
-﻿@model IEnumerable<E_Commerce_App.DTO.ProductDTO>
+﻿@model IEnumerable<Product>
+@{
+	ViewData["Title"] = "AddProduct";
+	var departmentId = ViewContext.HttpContext.Request.Query["departmentID"];
+}
+
+<div class="d-flex flex-row-reverse">
+
+	<button>
+		<a asp-controller="Product" asp-action="AddProduct" asp-route-departmentID="@departmentId">Add</a>
+
+	</button>
+
+</div>
 
 <ul>
 	@foreach (var pr in Model)
@@ -11,7 +24,7 @@
 
 			</ul>
 			<a asp-action="ProductDetails" asp-route-id="@pr.ID">Detail</a>
-
+			
 		</div>
 
 	}
