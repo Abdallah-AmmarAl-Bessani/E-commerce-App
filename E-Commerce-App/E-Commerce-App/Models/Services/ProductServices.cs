@@ -66,7 +66,15 @@ namespace E_Commerce_App.Models.Services
 			return product;
 		}
 
-		public async Task<Product> UpdateProductAsync(int ID, Product product)
+        public async Task<List<Product>> GetProductByName(string name)
+        {
+			var products = await _commerceDBContext.Product
+				.Where(x => x.Name.Contains(name))
+				.ToListAsync();
+			return products;
+        }
+
+        public async Task<Product> UpdateProductAsync(int ID, Product product)
 		{
 			var product1 = await _commerceDBContext.Product.FindAsync(ID);
 
@@ -76,7 +84,7 @@ namespace E_Commerce_App.Models.Services
 				product1.Name = product.Name;
 				product1.Quantity = product.Quantity;
 				_commerceDBContext.Entry(product1).State = EntityState.Modified;
-				_commerceDBContext.SaveChanges();
+				await _commerceDBContext.SaveChangesAsync();
 			}
 			return product1;
 

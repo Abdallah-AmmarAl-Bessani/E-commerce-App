@@ -1,31 +1,28 @@
 ﻿@model IEnumerable<Department>
 @{
+    var categoryId = Model.FirstOrDefault()?.CategoryID;
     <div class="text-center">
-    <h1> Departments  </h1>
+        <h1> Departments  </h1>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-
-
-                <tr>
-                    <td>
-                        <a asp-controller="Product" asp-action="Product" asp-route-departmentID="@item.ID"> @Html.DisplayFor(modelItem => item.Name)</a>
-                    </td>
-                    <td>
-                        <a asp-action="DepartmentDetails" asp-route-departmentId="@item.ID">Details</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+   <div class="d-flex flex-row float-end mx-3" >
+        <a class="btn btn-success mx-2" asp-action="AddDepartment" asp-route-categoryId="@categoryId">Add</a>
+        <a class="btn btn-success mx-2" asp-controller="Category" asp-action="Index" >Back</a>
+   </div>
+    <div class="container d-inline-flex">
+        @foreach (var item in Model)
+        {
+            <div class="card ms-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @item.Name
+                    </h5>
+                    <p>
+                        Some quick example text to build on the card title and make up the bulk of the card's content.
+                    </p>
+                    <a class="btn btn-success font-monospace" asp-controller="Product" asp-action="Product" asp-route-departmentID="@item.ID">@Html.DisplayFor(modelItem => item.Name)</a>
+                    <a class="btn btn-primary" asp-action="DepartmentDetails" asp-route-departmentId="@item.ID">Details</a>
+                </div>
+            </div>
+        }
+    </div>
 }

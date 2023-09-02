@@ -11,5 +11,6 @@ namespace E_Commerce_App.Models.Interfaces
 
         public Task<List<Product>> GetAllProductAsync(int departmentID);
         public Task<Product> GetProductAsync(int ID);
+        public Task<List<Product>> GetProductByName(string name);
     }
 }
