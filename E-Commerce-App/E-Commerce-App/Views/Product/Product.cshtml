@@ -1,4 +1,4 @@
-﻿@model IEnumerable<E_Commerce_App.DTO.ProductDTO>
+﻿@model IEnumerable<Product>
 
 <ul>
 	@foreach (var pr in Model)
@@ -8,13 +8,12 @@
 				<li class="me-4">@pr.Name</li>
 				<li class="me-4">@pr.Quantity</li>
 				<li class="me-4">@pr.Price</li>
-
 			</ul>
 			<a asp-action="ProductDetails" asp-route-id="@pr.ID">Detail</a>
-
 		</div>
-
 	}
-
-
 </ul>
+
+
+
+

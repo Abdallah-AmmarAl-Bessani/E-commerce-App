@@ -39,6 +39,18 @@ namespace E_Commerce_App.Controllers
             return View(category);
         }
 
+        public IActionResult AddCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(Category category)
+        {
+            await _category.CreateCategory(category);
+            return View(category);
+        }
+
         //[HttpGet]
         //public async Task<IActionResult> EditCategory(int id)
         //{

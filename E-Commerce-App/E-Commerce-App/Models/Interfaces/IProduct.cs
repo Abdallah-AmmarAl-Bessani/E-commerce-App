@@ -9,7 +9,8 @@ namespace E_Commerce_App.Models.Interfaces
         public Task DeleteProductAsync(int ID);
         public Task<Product> CreateProductAsync(ProductDTO productdto);
 
-        public Task<List<ProductDTO>> GetAllProductAsync(int departmentID);
+        public Task<List<Product>> GetAllProductAsync(int departmentID);
         public Task<Product> GetProductAsync(int ID);
+        public Task<List<Product>> GetProductByName(string name);
     }
 }

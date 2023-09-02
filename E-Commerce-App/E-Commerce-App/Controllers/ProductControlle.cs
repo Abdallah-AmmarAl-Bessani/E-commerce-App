@@ -1,4 +1,5 @@
-﻿using E_Commerce_App.Models;
+﻿using E_Commerce_App.DTO;
+using E_Commerce_App.Models;
 using E_Commerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,5 +44,19 @@ namespace E_Commerce_App.Controllers
 
 			return View(product);
 		}
-	}
+        public async Task<IActionResult> GetSuggestions(string input)
+        {
+			if (string.IsNullOrEmpty(input))
+			{
+				return Json(new List<Product>());
+			}
+
+			List<Product> suggestions = await _product.GetProductByName(input);
+			return Json(suggestions);
+		}
+		public IActionResult Search()
+		{
+			return View();
+		}
+    }
 }
