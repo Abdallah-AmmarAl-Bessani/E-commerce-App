@@ -14,14 +14,9 @@ namespace E_Commerce_App.Models.Services
 		{
 			_commerceDBContext = commerceDBContext;
 		}
-		public async Task<Product> CreateProductAsync(ProductDTO productdto)
+		public async Task<Product> CreateProductAsync(Product product)
 		{
-			Product product = new Product
-			{
-				Quantity = productdto.Quantity,
-				Name = productdto.Name,
-				Price = productdto.Price,
-			};
+			
 			_commerceDBContext.Entry(product).State = EntityState.Added;
 			await _commerceDBContext.SaveChangesAsync();
 			return product;
