@@ -1,19 +1,21 @@
 ﻿using E_Commerce_App.Models;
 using Microsoft.EntityFrameworkCore;
 using E_Commerce_App.DTO;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace E_Commerce_App.Data
 {
-    public class E_CommerceDBContext : DbContext
+    public class E_CommerceDBContext : IdentityDbContext<UserInterface>
     {
-        public E_CommerceDBContext(DbContextOptions options):base(options)
+        public E_CommerceDBContext(DbContextOptions options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Category>().HasData(
                 new Category
@@ -23,7 +25,7 @@ namespace E_Commerce_App.Data
                 },
                 new Category
                 {
-                    ID= 2,
+                    ID = 2,
                     Name = "Houseware"
                 },
                 new Category
@@ -42,7 +44,7 @@ namespace E_Commerce_App.Data
                 },
                 new Department
                 {
-                    ID = 2 ,
+                    ID = 2,
                     CategoryID = 1,
                     Name = "Fridges"
                 },
@@ -60,15 +62,15 @@ namespace E_Commerce_App.Data
                 },
                 new Department
                 {
-                    ID = 5, 
+                    ID = 5,
                     CategoryID = 3,
                     Name = "Meats"
                 },
                 new Department
                 {
                     ID = 6,
-                    CategoryID= 3,
-                    Name= "Food Stuff"
+                    CategoryID = 3,
+                    Name = "Food Stuff"
                 }
                 );
 
@@ -168,19 +170,65 @@ namespace E_Commerce_App.Data
                     Price = 1,
                     Quantity = 48,
                     DepartmentID = 6
-                    
+
                 });
 
 
-           modelBuilder.Entity<Department>().HasKey(x => new 
+            modelBuilder.Entity<Department>().HasKey(x => new
             {
                 x.ID,
             });
 
-            //modelBuilder.Entity<Product>()
-            // .HasOne(p => p.Department) // Define the relationship with Department
-            // .WithMany(d => d.Products) // One Department has many Products
-            // .HasForeignKey(p => p.DepartmentID);
+            var hasher = new PasswordHasher<UserInterface>();
+            var Admin = new UserInterface
+            {
+                Id = "1",
+                UserName = "Admin",
+                NormalizedUserName = "ADMIN",
+                Email = "adminUser@example.com",
+                PhoneNumber = "1234567890",
+                NormalizedEmail = "adminUser@EXAMPLE.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false
+            };
+            //Admin.PasswordHash = hasher.HashPassword(Admin, "Admin@1+");
+
+            //modelBuilder.Entity<UserInterface>().HasData(Admin);
+
+            //List<IdentityUserRole<string>> userRoles = new List<IdentityUserRole<string>>()
+            // {
+            //new IdentityUserRole<string> { UserId ="1" , RoleId = "admin" }
+    
+            //  };
+            //modelBuilder.Entity<IdentityUserRole<string>>().HasData(userRoles);
+
+            seedRole(modelBuilder, "Admin", "create", "update", "delete", "read");
+
+            seedRole(modelBuilder, "User", "create", "update", "delete", "read");
+        }
+        int nextId = 1;
+        private void seedRole(ModelBuilder modelBuilder, string roleName, params string[] permissions)
+        {
+            var role = new IdentityRole()
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(role);
+
+            var roleClaim = permissions.Select(permission =>
+            new IdentityRoleClaim<string>
+            {
+                Id = nextId++,
+                RoleId = role.Id,
+                ClaimType = "permissions",
+                ClaimValue = permission
+            }).ToArray();
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(roleClaim);
         }
 
         public DbSet<Category> Category { get; set; }

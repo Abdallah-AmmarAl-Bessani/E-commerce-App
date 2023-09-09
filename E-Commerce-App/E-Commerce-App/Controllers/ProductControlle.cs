@@ -2,6 +2,7 @@ using E_Commerce_App.Data;
 using E_Commerce_App.DTO;
 using E_Commerce_App.Models;
 using E_Commerce_App.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -27,7 +28,6 @@ namespace E_Commerce_App.Controllers
 			return View(productsDTO);
 		}
 
-		
 
 
 		[HttpGet]
@@ -41,25 +41,17 @@ namespace E_Commerce_App.Controllers
 			return View(product);
 		}
 
-
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task< IActionResult >CreateProduct(Product product)
 		{
-			
 			var departmentExists = _commerceDBContext.Department.Any(d => d.ID == product.DepartmentID);
-
 			if (!departmentExists)
 			{
-				
 				ModelState.AddModelError("DepartmentID", "The selected department does not exist.");
 				return View("AddProduct", product); 
 			}
-
-			
 			 await _product.CreateProductAsync(product);
-
-			
 			return RedirectToAction("product", new { departmentID = product.DepartmentID });
 		}
 

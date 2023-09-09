@@ -1,6 +1,7 @@
 ﻿using E_Commerce_App.Models;
 using E_Commerce_App.Models.Interfaces;
 using E_Commerce_App.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce_App.Controllers
@@ -13,6 +14,7 @@ namespace E_Commerce_App.Controllers
             _category = category;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var categories = await _category.GetCategories();
