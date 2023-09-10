@@ -31,7 +31,9 @@ namespace E_Commerce_App.Controllers
 
 
 		[HttpGet]
-		public IActionResult AddProduct(int departmentID)
+        [Authorize(Roles = "Admin")]
+
+        public IActionResult AddProduct(int departmentID)
 		{
 			var product = new Product
 			{
@@ -42,7 +44,8 @@ namespace E_Commerce_App.Controllers
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
 		public async Task< IActionResult >CreateProduct(Product product)
 		{
 			var departmentExists = _commerceDBContext.Department.Any(d => d.ID == product.DepartmentID);
@@ -55,11 +58,11 @@ namespace E_Commerce_App.Controllers
 			return RedirectToAction("product", new { departmentID = product.DepartmentID });
 		}
 
-
-		public async Task<IActionResult> DeleteProduct(int id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteProduct(int id)
 		{
 			await _product.DeleteProductAsync(id);
-			return RedirectToAction("ProductDetails");
+			return RedirectToAction("product", new {id});
 		}
 
 		public async Task<IActionResult> ProductDetails(int id)
@@ -67,13 +70,16 @@ namespace E_Commerce_App.Controllers
 			var product = await _product.GetProductAsync(id);
 			return View(product);
 		}
+        [Authorize(Policy = "Update", Roles = "User")]
 
-		public IActionResult EditProduct(int ID)
+        public IActionResult EditProduct(int ID)
 		{
 			return View(new Product { ID = ID });
 		}
 		[HttpPost]
-		public async Task<IActionResult> EditProduct(Product product, int ID)
+        [Authorize(Policy = "Update", Roles = "User")]
+
+        public async Task<IActionResult> EditProduct(Product product, int ID)
 		{
 			await _product.UpdateProductAsync(ID, product);
 
@@ -88,6 +94,13 @@ namespace E_Commerce_App.Controllers
 
 			List<Product> suggestions = await _product.GetProductByName(input);
 			return Json(suggestions);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetProductsList()
+		{
+			var products = await _product.GetAllProducts();
+			return View(products);
 		}
 		public IActionResult Search()
 		{

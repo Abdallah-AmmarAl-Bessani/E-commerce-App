@@ -1,10 +1,11 @@
 ﻿@model E_Commerce_App.Models.Product
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UserInterface> SignInManager
 @{
     ViewData["Title"] = "ProductDetails";
     var departmentId = ViewContext.HttpContext.Request.Query["departmentID"];
+    
 }
-
 <h1>ProductDetails</h1>
 
 <div>
@@ -32,9 +33,18 @@
     </dl>
 
 </div>
-<div>
-    <a asp-action="DeleteProduct" asp-route-id="@Model?.ID">Delete</a>
 
-    @Html.ActionLink("Edit", "EditProduct", new { ID = Model?.ID })|
-    <a asp-action="Product" asp-route-departmentID="@Model.DepartmentID">Back to List</a>
+
+
+<div>
+    @if (User.IsInRole("User"))
+    {
+        @Html.ActionLink("Edit", "EditProduct", new { ID = Model?.ID })
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        @* <a asp-action="DeleteProduct" asp-route-id="@Model?.ID">Delete</a> *@
+        @Html.ActionLink("Delete", "DeleteProduct", new { id = Model?.ID})
+    }
+    <a asp-action="Product" asp-route-departmentID="@departmentId">Back to List</a>
 </div>

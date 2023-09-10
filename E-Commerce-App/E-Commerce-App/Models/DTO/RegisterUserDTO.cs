@@ -12,7 +12,7 @@ namespace E_Commerce_App.Models.DTO
         public string Email { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
-
-        public string Roles { get; set; }
+        
+        public string? Roles { get; set; }
     }
 }

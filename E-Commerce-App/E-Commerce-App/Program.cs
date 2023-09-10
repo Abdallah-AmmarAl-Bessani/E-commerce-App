@@ -33,13 +33,21 @@ namespace E_Commerce_App
             builder.Services.AddIdentity<UserInterface, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<E_CommerceDBContext>();
+            }).AddEntityFrameworkStores<E_CommerceDBContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthorization(options => {
+                options.AddPolicy("create", policy => policy.RequireClaim("permissions", "create"));
+                options.AddPolicy("update", policy => policy.RequireClaim("permissions", "update"));
+                options.AddPolicy("delete", policy => policy.RequireClaim("permissions", "delete"));
+                options.AddPolicy("read", policy => policy.RequireClaim("permissions", "read"));
+            });
 
             builder.Services.AddTransient<ICategory, CategoryService>();
             builder.Services.AddTransient<IDepartment, DepartmentService>();
             builder.Services.AddTransient<IProduct, ProductServices>();
             builder.Services.AddTransient<IUser, IdentityUserService>();
-            builder.Services.AddScoped<JWTTokenService>();
+            //builder.Services.AddScoped<JWTTokenService>();
             //builder.Services.AddAuthentication(options =>
             //{
             //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -50,27 +58,22 @@ namespace E_Commerce_App
             //    options.TokenValidationParameters = JWTTokenService.GetValidationPerameters(builder.Configuration);
             //});
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "your_issuer",
-            ValidAudience = "your_audience",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_security_key"))
-        };
-    });
+            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //.AddJwtBearer(options =>
+            //{
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = "your_issuer",
+            //        ValidAudience = "your_audience",
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_security_key"))
+            //    };
+            //});
 
-            builder.Services.AddAuthorization(options => {
-                options.AddPolicy("create", policy => policy.RequireClaim("permissions", "create"));
-                options.AddPolicy("update", policy => policy.RequireClaim("permissions", "update"));
-                options.AddPolicy("delete", policy => policy.RequireClaim("permissions", "delete"));
-                options.AddPolicy("read", policy => policy.RequireClaim("permissions", "read"));
-            });
+           
             builder.Services.AddAuthorization();
 
 
