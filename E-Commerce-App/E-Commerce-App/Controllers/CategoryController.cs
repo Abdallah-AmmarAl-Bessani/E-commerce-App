@@ -14,7 +14,7 @@ namespace E_Commerce_App.Controllers
             _category = category;
         }
 
-        [Authorize]
+        
         public async Task<IActionResult> Index()
         {
             var categories = await _category.GetCategories();
@@ -28,25 +28,28 @@ namespace E_Commerce_App.Controllers
             return View(category);
         }
 
+        [Authorize(Policy ="Update", Roles ="User")]
         public IActionResult EditCategory(int ID)
         {
             return View(new Category { ID = ID });
         }
 
         [HttpPost]
+        [Authorize(Policy = "Update", Roles = "User")]
         public async Task<IActionResult> EditCategory(Category category, int ID)
         {
             await _category.UpdateCategory(category, ID);
 
             return View(category);
         }
-
+        [Authorize(Roles ="Admin")]
         public IActionResult AddCategory()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddCategory(Category category)
         {
             await _category.CreateCategory(category);
@@ -77,6 +80,7 @@ namespace E_Commerce_App.Controllers
         //    return View(category); // Show the view with validation errors
         //}
 
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             await _category.DeleteCategory(id);

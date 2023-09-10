@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UserInterface> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="p-1">
+        Welcome, @User.Identity.Name!
+        <a asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+    </div>
+}
+else
+{
+    <div class="d-inline-flex p-0 p-sm-1">
+        <a class="btn btn-outline-primary mx-2" href="/user/login">Login</a>
+        <a class="btn btn-success" href="/user/register">Register</a>
+    </div>
+}

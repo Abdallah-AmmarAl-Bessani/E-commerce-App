@@ -1,13 +1,14 @@
 ﻿using E_Commerce_App.Data;
 using E_Commerce_App.DTO;
 using E_Commerce_App.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace E_Commerce_App.Models.Services
 {
-	public class ProductServices : IProduct
+    public class ProductServices : IProduct
 	{
 		private readonly E_CommerceDBContext _commerceDBContext;
 		public ProductServices(E_CommerceDBContext commerceDBContext)
@@ -52,10 +53,13 @@ namespace E_Commerce_App.Models.Services
 				Quantity = x.Quantity,
 			}).ToListAsync();
 		}
+		[AllowAnonymous]
+        public async Task<List<Product>> GetAllProducts()
+        {
+			return await _commerceDBContext.Product.Include(x=> x.Department).ToListAsync();
+        }
 
-
-
-		public async Task<Product> GetProductAsync(int ID)
+        public async Task<Product> GetProductAsync(int ID)
 		{
 			Product? product = await _commerceDBContext.Product.FindAsync(ID);
 			if (product == null)

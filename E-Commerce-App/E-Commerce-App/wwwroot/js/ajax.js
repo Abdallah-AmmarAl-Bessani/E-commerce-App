@@ -11,7 +11,7 @@
                     return `<a href='/Product/ProductDetails/${product.id}'>` + product.name + " </a>";
                 }).join("");
 
-                document.getElementById("textHint").innerHTML ="<div style='background-coloe:red; height:100px;'>" +suggestionsList + "</div>";
+                document.getElementById("textHint").innerHTML ="<div class='d-flex flex-column p-1 m-1'>" +suggestionsList + "</div>";
             }
         };
         xmlhttp.open("GET", "/Product/GetSuggestions?input=" + str, true);

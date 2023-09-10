@@ -8,7 +8,7 @@ namespace E_Commerce_App.Models.Interfaces
     {
         public Task<UserDTO> Register(RegisterUserDTO registerUser, ModelStateDictionary modelState);
 
-        public Task<UserDTO> Authenticate(string username, string password);
+        public Task<UserDTO> Authenticate(string username, string password, ModelStateDictionary modelState);
 
         public Task<UserDTO> GetUser(ClaimsPrincipal principal);
 
