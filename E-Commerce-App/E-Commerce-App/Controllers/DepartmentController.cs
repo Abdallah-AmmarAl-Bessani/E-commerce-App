@@ -1,5 +1,6 @@
 ﻿using E_Commerce_App.Models;
 using E_Commerce_App.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
@@ -28,6 +29,7 @@ namespace E_Commerce_App.Controllers
             return View(x);
         }
 
+
         public async Task<IActionResult> DepartmentDetails(int departmentId)
         {
             var departmentDetails = await _department.GetDepartmentById(departmentId);
@@ -35,11 +37,12 @@ namespace E_Commerce_App.Controllers
             return View(departmentDetails);
         }
 
+        [Authorize(Policy = "Update")]
         public IActionResult EditDepartment(int ID, int CategoryID)
         {
             return View(new Department { ID = ID, CategoryID = CategoryID });
         }
-
+        [Authorize(Policy = "Update")]
         [HttpPost]
         public async Task<IActionResult> EditDepartment(Department department, int ID, int CategoryID)
         {
@@ -48,7 +51,7 @@ namespace E_Commerce_App.Controllers
             return View(department);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDepartment(int departmentId, int categoryId)
         {
             await _department.DeleteDepartment(departmentId);
@@ -56,6 +59,7 @@ namespace E_Commerce_App.Controllers
             return RedirectToAction("Departments", new { categoryId });
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddDepartment(int categoryId)
         {
             var categories = await _category.GetCategories();
@@ -66,6 +70,7 @@ namespace E_Commerce_App.Controllers
             return View(department);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddDepartment(Department department)

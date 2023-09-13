@@ -1,5 +1,6 @@
 ﻿@model E_Commerce_App.Models.Department
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UserInterface> SignInManager
 @{
     ViewData["Title"] = "Department Details";
 }
@@ -25,7 +26,12 @@
     </dl>
 </div>
 <div>
+    @if ((User.HasClaim(c => c.Type == "permissions" && c.Value == "update")) && User.IsInRole("User"))
+    {
     @Html.ActionLink("Edit", "EditDepartment", new { ID = Model.ID, CategoryID=Model.CategoryID })
+        
+    }
+    @if (User.IsInRole("Admin"))
     @Html.ActionLink("Delete", "DeleteDepartment", new { departmentId = Model.ID , categoryId = Model.CategoryID})
     <a asp-action="Departments"
        asp-route-categoryId="@Model.CategoryID">Back to List</a>
