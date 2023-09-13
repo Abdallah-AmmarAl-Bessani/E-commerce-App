@@ -3,8 +3,7 @@
 @inject SignInManager<UserInterface> SignInManager
 @{
     ViewData["Title"] = "ProductDetails";
-    var departmentId = ViewContext.HttpContext.Request.Query["departmentID"];
-    
+
 }
 <h1>ProductDetails</h1>
 
@@ -33,18 +32,32 @@
     </dl>
 
 </div>
-
-
+@if(Model.imageURL == null)
+{
+    <div>
+        <img src="https://lab29images.blob.core.windows.net/images/defaultImage.png" alt="Default Image" width="200" height="200" />
+    </div>
+    
+}
+else
+{
+    <div>
+        <img src="@Model.imageURL" alt="@Model.Name" width="200" height="200" />
+    </div>
+    
+}
 
 <div>
-    @if (User.IsInRole("User"))
+
+    @if ((User.HasClaim(c => c.Type == "permissions" && c.Value == "update")) && User.IsInRole("User"))
     {
         @Html.ActionLink("Edit", "EditProduct", new { ID = Model?.ID })
     }
+
     @if (User.IsInRole("Admin"))
     {
-        @* <a asp-action="DeleteProduct" asp-route-id="@Model?.ID">Delete</a> *@
         @Html.ActionLink("Delete", "DeleteProduct", new { id = Model?.ID})
     }
-    <a asp-action="Product" asp-route-departmentID="@departmentId">Back to List</a>
+    @* @Html.ActionLink("Back", "product", new { departmentId = Model?.DepartmentID}) *@
+    <a asp-controller="Product" asp-action="product" asp-route-departmentID="@Model.DepartmentID">Back to List</a>
 </div>

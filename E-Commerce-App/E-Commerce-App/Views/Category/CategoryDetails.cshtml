@@ -20,7 +20,7 @@
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("User"))
+    @if ((User.HasClaim(c => c.Type == "permissions" && c.Value == "update")) && User.IsInRole("User"))
     {
         @Html.ActionLink("Edit", "EditCategory", new { ID = Model.ID})
     }

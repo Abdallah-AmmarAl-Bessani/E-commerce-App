@@ -51,6 +51,7 @@ namespace E_Commerce_App.Models.Services
 				Name = x.Name,
 				Price = x.Price,
 				Quantity = x.Quantity,
+				imageURL = x.imageURL
 			}).ToListAsync();
 		}
 		[AllowAnonymous]
@@ -61,11 +62,8 @@ namespace E_Commerce_App.Models.Services
 
         public async Task<Product> GetProductAsync(int ID)
 		{
-			Product? product = await _commerceDBContext.Product.FindAsync(ID);
-			if (product == null)
-			{
-				return null;
-			}
+			var product = await _commerceDBContext.Product.FindAsync(ID);
+			
 
 			return product;
 		}
@@ -87,6 +85,16 @@ namespace E_Commerce_App.Models.Services
 				product1.Price = product.Price;
 				product1.Name = product.Name;
 				product1.Quantity = product.Quantity;
+				
+				if (product.imageURL != null)
+				{
+					product1.imageURL = product.imageURL;
+				}
+				else
+				{
+					product1.imageURL = "";
+				}
+
 				_commerceDBContext.Entry(product1).State = EntityState.Modified;
 				await _commerceDBContext.SaveChangesAsync();
 			}

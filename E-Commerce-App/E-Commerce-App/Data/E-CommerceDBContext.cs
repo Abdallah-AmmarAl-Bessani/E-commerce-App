@@ -81,7 +81,7 @@ namespace E_Commerce_App.Data
                     Name = "Samsung",
                     Price = 350,
                     Quantity = 23,
-                    DepartmentID = 1,
+                    DepartmentID = 1
                 },
                 new Product
                 {

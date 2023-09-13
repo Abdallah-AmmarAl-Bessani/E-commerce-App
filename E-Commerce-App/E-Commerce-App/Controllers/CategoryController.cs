@@ -28,14 +28,14 @@ namespace E_Commerce_App.Controllers
             return View(category);
         }
 
-        [Authorize(Policy ="Update", Roles ="User")]
+        [Authorize(Policy ="update", Roles = "User")]
         public IActionResult EditCategory(int ID)
         {
             return View(new Category { ID = ID });
         }
 
         [HttpPost]
-        [Authorize(Policy = "Update", Roles = "User")]
+        [Authorize(Policy = "update", Roles = "User")]
         public async Task<IActionResult> EditCategory(Category category, int ID)
         {
             await _category.UpdateCategory(category, ID);
