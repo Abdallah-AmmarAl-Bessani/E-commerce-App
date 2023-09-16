@@ -5,46 +5,46 @@
         <label class="sr-only" for="userName">userName:</label>
         <input type="text" name="userName" class="form-control" id="userName" placeholder="Username">
 
-        <div class="mt-2">
-            <span asp-validation-for="UserName" class="text-danger bg-opacity-25 bg-danger"></span>
-        </div>
+        @* <div class="mt-2">
+        <span asp-validation-for="UserName" class="text-danger bg-opacity-25 bg-danger"></span>
+        </div> *@
 
     </div>
     <div class="form-group">
         <label class="sr-only" for="Email">Email:</label>
         <input type="text" name="Email" class="form-control" id="Email" placeholder="example@email.com">
-        <div class="mt-2">
-            <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
-        </div>
+        @* <div class="mt-2">
+        <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
+        </div> *@
+
     </div>
     <div class="form-group">
         <label class="sr-only" for="Password">Password:</label>
         <input type="password" name="Password" class="form-control" id="Password" placeholder="***********">
-        <div class="mt-2">
-            <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
-        </div>
+        @*   <div class="mt-2">
+        <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
+        </div> *@
 
 
     </div>
     <div class="form-group">
         <label class="sr-only" for="PhoneNumber">Phone number:</label>
         <input type="text" name="PhoneNumber" class="form-control" id="PhoneNumber" placeholder="009620000000">
-        <div class="mt-2">
-            <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
+        @*         <div class="mt-2">
+        <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
         </div>
-
+        *@
     </div>
-      <div class="form-group">
-    <label class="sr-only">Roles:</label>
-    <input type="checkbox" name="Roles" value="Admin"> Admin
-    <input type="checkbox" name="Roles" value="User"> User
-    <!-- Add more roles as needed -->
+    <div class="form-group">
+        <label class="sr-only">Roles:</label>
+        <input type="checkbox" name="Roles" value="Admin"> Admin
+        <input type="checkbox" name="Roles" value="User"> User
+        <!-- Add more roles as needed -->
     </div>
-    @*  @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
     {
-    <div class="alert alert-danger">@error.ErrorMessage</div>
-
-    } *@
+        <div class="alert alert-danger text-danger p-2 my-2">@error.ErrorMessage</div>
+    }
 
     <button type="submit" class="btn btn-primary">Sign up</button>
 </form>

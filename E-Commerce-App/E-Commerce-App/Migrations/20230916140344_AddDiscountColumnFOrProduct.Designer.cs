@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce_App.Migrations
 {
     [DbContext(typeof(E_CommerceDBContext))]
-    [Migration("20230912202230_UpdateDataBase")]
-    partial class UpdateDataBase
+    [Migration("20230916140344_AddDiscountColumnFOrProduct")]
+    partial class AddDiscountColumnFOrProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,9 @@ namespace E_Commerce_App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -95,6 +98,9 @@ namespace E_Commerce_App.Migrations
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -156,6 +162,12 @@ namespace E_Commerce_App.Migrations
                     b.Property<int>("DepartmentID")
                         .HasColumnType("int");
 
+                    b.Property<double?>("Discount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -165,9 +177,6 @@ namespace E_Commerce_App.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<string>("imageURL")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 

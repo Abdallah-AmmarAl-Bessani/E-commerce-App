@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace E_Commerce_App.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateDataBase : Migration
+    public partial class NewSEtupForAllTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +58,8 @@ namespace E_Commerce_App.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -194,7 +195,8 @@ namespace E_Commerce_App.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -217,7 +219,7 @@ namespace E_Commerce_App.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    imageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,12 +243,12 @@ namespace E_Commerce_App.Migrations
 
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "ID", "Name" },
+                columns: new[] { "ID", "ImageURL", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Electric" },
-                    { 2, "Houseware" },
-                    { 3, "Food" }
+                    { 1, null, "Electric" },
+                    { 2, null, "Houseware" },
+                    { 3, null, "Food" }
                 });
 
             migrationBuilder.InsertData(
@@ -266,34 +268,34 @@ namespace E_Commerce_App.Migrations
 
             migrationBuilder.InsertData(
                 table: "Department",
-                columns: new[] { "ID", "CategoryID", "Name" },
+                columns: new[] { "ID", "CategoryID", "ImageURL", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, "Screens" },
-                    { 2, 1, "Fridges" },
-                    { 3, 2, "Tables" },
-                    { 4, 2, "Kitchen Tools" },
-                    { 5, 3, "Meats" },
-                    { 6, 3, "Food Stuff" }
+                    { 1, 1, null, "Screens" },
+                    { 2, 1, null, "Fridges" },
+                    { 3, 2, null, "Tables" },
+                    { 4, 2, null, "Kitchen Tools" },
+                    { 5, 3, null, "Meats" },
+                    { 6, 3, null, "Food Stuff" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "ID", "DepartmentID", "Name", "Price", "Quantity", "imageURL" },
+                columns: new[] { "ID", "DepartmentID", "ImageURL", "Name", "Price", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 1, "Samsung", 350, 23, null },
-                    { 2, 1, "LG", 300, 40, null },
-                    { 3, 2, "Beko", 250, 50, null },
-                    { 4, 2, "Toshiba", 280, 40, null },
-                    { 5, 3, "4 Person lunch Table", 40, 100, null },
-                    { 6, 3, "8 Person lunch table", 70, 100, null },
-                    { 7, 4, "Teval Pan", 20, 45, null },
-                    { 8, 4, "Dishes", 15, 100, null },
-                    { 9, 5, "Sheep meat", 15, 110, null },
-                    { 10, 5, "Beef", 10, 80, null },
-                    { 11, 6, "Sunny frying oil", 10, 80, null },
-                    { 12, 6, "Durra Bean Box 500g", 1, 48, null }
+                    { 1, 1, null, "Samsung", 350, 23 },
+                    { 2, 1, null, "LG", 300, 40 },
+                    { 3, 2, null, "Beko", 250, 50 },
+                    { 4, 2, null, "Toshiba", 280, 40 },
+                    { 5, 3, null, "4 Person lunch Table", 40, 100 },
+                    { 6, 3, null, "8 Person lunch table", 70, 100 },
+                    { 7, 4, null, "Teval Pan", 20, 45 },
+                    { 8, 4, null, "Dishes", 15, 100 },
+                    { 9, 5, null, "Sheep meat", 15, 110 },
+                    { 10, 5, null, "Beef", 10, 80 },
+                    { 11, 6, null, "Sunny frying oil", 10, 80 },
+                    { 12, 6, null, "Durra Bean Box 500g", 1, 48 }
                 });
 
             migrationBuilder.CreateIndex(

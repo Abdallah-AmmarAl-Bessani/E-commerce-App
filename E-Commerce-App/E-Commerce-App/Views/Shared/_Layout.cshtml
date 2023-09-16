@@ -6,7 +6,9 @@
     <title>@ViewData["Title"] - E_Commerce_App</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/E_Commerce_App.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ListProduct.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Ajax.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/E_Commerce_App.styles.css" asp-append-version="true" /> *@
 </head>
 <body class="m-0">
     <header>
@@ -40,11 +42,11 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    
     <footer class="border-top footer text-muted  text-center">
         <div class="container">
             &copy; 2023 - E_Commerce_App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -54,6 +56,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/f9b49e7bf3.js" crossorigin="anonymous"></script>
+    <script src="~/js/ajax.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

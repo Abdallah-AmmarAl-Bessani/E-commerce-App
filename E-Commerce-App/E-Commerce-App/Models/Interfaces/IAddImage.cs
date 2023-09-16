@@ -2,6 +2,6 @@
 {
 	public interface IAddImage
 	{
-		Task<Product> uploadImage(IFormFile file, Product product);
-	}
+		Task<T> UploadImage<T>(IFormFile file, T Model) where T : IHasImage;
+   }
 }

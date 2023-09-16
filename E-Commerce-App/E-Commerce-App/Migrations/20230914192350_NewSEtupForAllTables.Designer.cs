@@ -4,6 +4,7 @@ using E_Commerce_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce_App.Migrations
 {
     [DbContext(typeof(E_CommerceDBContext))]
-    partial class E_CommerceDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230914192350_NewSEtupForAllTables")]
+    partial class NewSEtupForAllTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,9 +161,6 @@ namespace E_Commerce_App.Migrations
 
                     b.Property<int>("DepartmentID")
                         .HasColumnType("int");
-
-                    b.Property<double?>("Discount")
-                        .HasColumnType("float");
 
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");

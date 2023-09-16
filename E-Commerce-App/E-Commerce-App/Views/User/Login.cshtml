@@ -4,36 +4,36 @@
     ViewData["Title"] = "Login Page";
 }
 <h1>Login page</h1>
-
 <h4>Login</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form  asp-action="Login">
-            @* <div asp-validation-summary="All" class="text-danger"></div> *@
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" class="form-control" required/>
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-            <label asp-for="CategoryID" class="control-label"></label>
-            <input asp-for="CategoryID" class ="form-control" />
-            </div> *@
-            <div class="form-group">
+                       <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" type="password" class="form-control" required />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            @* @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
             {
-                <div class="alert alert-danger text-danger">@error.ErrorMessage</div>
-            } *@
+                <div class="alert alert-danger text-danger p-2 my-2">@error.ErrorMessage</div>
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary m-2 p-1" />
             </div>
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 

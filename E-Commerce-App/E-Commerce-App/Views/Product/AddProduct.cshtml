@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-controller="Product" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
-            @Html.AntiForgeryToken() 
+            @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -29,21 +29,28 @@
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <input type="hidden" asp-for="DepartmentID" />
+            @* <div class="form-group">
                 <label asp-for="DepartmentID" class="control-label"></label>
-                <input asp-for="DepartmentID" class="form-control" />
-                <span asp-validation-for="DepartmentID" class="text-danger"></span>
+                <select asp-for="DepartmentID" class="form-control" asp-items="ViewBag.Department">
+                    <option selected>Please Select A Department</option>
+                </select>
+            </div> *@
+
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Default file input example</label>
+                <input class="form-control" type="file" id="formFile" name="file" accept=".png,.jpg">
             </div>
-            <div class="form-group">
-                <label for="imageURL" class="form-label ms-0 ms-md-2 mt-2 mt-md-0 fw-medium fs-6">
-                  <span>Add Image <span class="small text-danger">optional</span></span>
+            @* <div class="form-group">
+                <label for="ImageURL" class="form-label ms-0 ms-md-2 mt-2 mt-md-0 fw-medium fs-6">
+                    <span>Add Image <span class="small text-danger">optional</span></span>
                 </label>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input d-none" id="imageURL" name="file"
+                    <input type="file" class="custom-file-input d-none" id="ImageURL" name="file"
                            accept=".png,.jpg" />
-                    <label id="imageURLLabel"
+                    <label id="ImageURLLabel"
                            class="custom-file-label form-control rounded-4 d-flex flex-row justify-content-between align-items-center text-body-small"
-                           for="imageURL">
+                           for="ImageURL">
                         <span class="small">"png, jpg"</span>
                         <div class="logo me-2">
                             <svg width="20" height="20" viewBox="0 0 31 31" fill="none"
@@ -55,7 +62,9 @@
                         </div>
                     </label>
                 </div>
-            </div>
+                <span asp-validation-for="ImageURL" class="text-danger"></span>
+
+            </div> *@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
