@@ -1,4 +1,4 @@
-﻿using E_Commerce_App.DTO;
+﻿
 
 namespace E_Commerce_App.Models.Interfaces
 {
