@@ -4,13 +4,17 @@
     ViewData["Title"] = "AddDepartment";
 }
 
-<h1>AddDepartment</h1>
+<h1 class="text-light">AddDepartment</h1>
+<div class="d-flex justify-content-between text-light">
+    <h4>Department</h4>
+    <a asp-action="Departments" class="btn btn-danger px-4" asp-route-categoryId="@Model.CategoryID"> &laquo Back to List</a>
 
-<h4>Department</h4>
+</div>
+
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
-        <form asp-action="AddDepartment">
+        <form asp-action="AddDepartment" enctype="multipart/form-data" class="text-light"> 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -21,7 +25,11 @@
                 <label asp-for="CategoryID" class="control-label"></label>
                 <input asp-for="CategoryID" class ="form-control" />
             </div> *@
-            <div class="form-group">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input class="form-control" type="file" id="formFile" name="file" accept=".png,.jpg">
+                </div>
+             <div class="form-group">
                 <label asp-for="CategoryID" class="control-label"></label>
                 <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.Category">
                     <option selected>Please Select A Department</option>
@@ -34,10 +42,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Departments" asp-route-categoryId="@Model.CategoryID">Back to List</a>
 
-</div>
 
 
 @section Scripts {

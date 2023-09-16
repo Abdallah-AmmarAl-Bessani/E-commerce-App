@@ -31,7 +31,6 @@ namespace E_Commerce_App.Controllers
         {
             return View();
         }
-
         public async Task<IActionResult> Logout()
         {
 
@@ -130,8 +129,7 @@ namespace E_Commerce_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult<UserDTO>> Login(LogInDTO loginDto)
         {
-            //if (loginDto.UserName != null && loginDto.Password != null)
-            //{
+
                 var user = await _user.Authenticate(loginDto.UserName, loginDto.Password, this.ModelState);
               if (ModelState.IsValid)
                 {
@@ -140,10 +138,7 @@ namespace E_Commerce_App.Controllers
                 return View(user);
             //}
             //return View();
-
-
             //string jwtToken = user.Token;
-
             //var cookieOptions = new CookieOptions
             //{
             //    HttpOnly = true,

@@ -3,15 +3,15 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="p-1">
+    <div class="p-1 text-light d-flex flex-column flex-md-row ">
         Welcome, @User.Identity.Name!
-        <a asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+        <a class="btn btn-primary btn-sm text-decoration-none ms-lg-3  mt-2 mt-lg-0" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
     </div>
 }
 else
 {
-    <div class="d-inline-flex p-0 p-sm-1">
-        <a class="btn btn-outline-primary mx-2" href="/user/login">Login</a>
-        <a class="btn btn-success" href="/user/register">Register</a>
+    <div class="d-inline-flex ">
+        <a class="btn btn-outline-primary ms-0 me-2 text-decoration-none" href="/user/login">Login</a>
+        <a class="btn btn-light text-decoration-none ms-lg-3" href="/user/register">Register</a>
     </div>
 }

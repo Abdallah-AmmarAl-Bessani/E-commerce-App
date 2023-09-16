@@ -1,9 +1,5 @@
-﻿@model E_Commerce_App.Models.DTO.RegisterUserDTO
-﻿<form class="form-inline" asp-action="Register">
-
-    <div class="form-group">
-        <label class="sr-only" for="userName">userName:</label>
-        <input type="text" name="userName" class="form-control" id="userName" placeholder="Username">
+@model E_Commerce_App.Models.DTO.RegisterUserDTO
+<form class="form-inline" asp-action="Register">
 
         @* <div class="mt-2">
         <span asp-validation-for="UserName" class="text-danger bg-opacity-25 bg-danger"></span>
@@ -26,6 +22,14 @@
         </div> *@
 
 
+        <div class="form-group">
+            <label class="sr-only" for="PhoneNumber">Phone number:</label>
+            <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="009620000000">
+            <div class="mt-2">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+
     </div>
     <div class="form-group">
         <label class="sr-only" for="PhoneNumber">Phone number:</label>
@@ -45,8 +49,7 @@
     {
         <div class="alert alert-danger text-danger p-2 my-2">@error.ErrorMessage</div>
     }
-
     <button type="submit" class="btn btn-primary">Sign up</button>
-</form>
 
-@* <div asp-validation-summary="All"></div> *@
+<form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>

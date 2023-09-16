@@ -1,8 +1,8 @@
 ﻿using E_Commerce_App.Models;
 using Microsoft.EntityFrameworkCore;
-using E_Commerce_App.DTO;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using E_Commerce_App.Models.DTO;
 
 namespace E_Commerce_App.Data
 {
@@ -237,6 +237,6 @@ namespace E_Commerce_App.Data
 
         public DbSet<Product> Product { get; set; }
 
-        public DbSet<E_Commerce_App.DTO.ProductDTO> ProductDTO { get; set; } = default!;
+        public DbSet<ProductDTO> ProductDTO { get; set; } = default!;
     }
 }

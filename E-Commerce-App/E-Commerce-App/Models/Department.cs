@@ -1,4 +1,4 @@
-﻿using E_Commerce_App.Models.Interfaces;
+using E_Commerce_App.Models.Interfaces;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_Commerce_App.Models

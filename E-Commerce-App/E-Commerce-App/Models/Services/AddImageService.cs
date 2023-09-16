@@ -38,6 +38,8 @@ namespace E_Commerce_App.Models.Services
             Model.ImageURL = blobClient.Uri.ToString();
 
             return Model;
+	
+
         }
     }
 }
