@@ -39,9 +39,6 @@ namespace E_Commerce_App.Controllers
                     };
                     return View(result);
                 }
-
-              
-
             }
             return View();
 

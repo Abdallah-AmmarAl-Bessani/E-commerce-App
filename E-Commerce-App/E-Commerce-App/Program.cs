@@ -83,7 +83,7 @@ namespace E_Commerce_App
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.LoginPath = "/User/Login"; // Set the correct path to your login action
             });

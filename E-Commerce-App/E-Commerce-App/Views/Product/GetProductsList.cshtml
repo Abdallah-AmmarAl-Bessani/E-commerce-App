@@ -2,48 +2,78 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<UserInterface> SignInManager
 
-<p>
-    
-</p>
-<div class="container mt-4">
-    <h1>Product List</h1>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="AddProduct" class="btn btn-primary">Create New</a>
-    }
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">@Html.DisplayNameFor(model => model.Name)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.Quantity)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.Department)</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+
+<div class="products">
+    <div class="container">
+       
+        <h1 class="lg-title">Special Products With Offers</h1>
+        <p class="text-center col-8 mx-auto my-1 text-dark">A new Products of All categories now is available and on sales what are you waiting ? come on and choose your Product plant and buy it </p>
+        <div class="product-items">
+
             @foreach (var item in Model)
             {
-                <tr>
-                    <td scope="row">@Html.DisplayFor(modelItem => item.Name)</td>
-                    <td scope="row">@Html.DisplayFor(modelItem => item.Price)</td>
-                    <td scope="row">@Html.DisplayFor(modelItem => item.Quantity)</td>
-                    <td>
-                        @if (item.Department != null)
+                var totalPrice = 0.0;
+
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            @if (item.ImageURL != null)
+                            {
+                                <img src="@item.ImageURL" alt="@item.Name">
+                            }
+                            else
+                            {
+                                <img src="https://lab29images.blob.core.windows.net/images/defaultImage.png" alt="@item.Name" />
+                            }
+
+                        </div>
+                        <div class="product-btns">
+                            <a asp-action="ProductDetails" asp-route-id="@item.ID" type="button" class="btn-cart d-flex justify-content-evenly align-items-center">
+                                <span>Details</span>
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">@item.Department.Name</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">@item.Name</a>
+                        @if (item.Price >= 30 && item.Discount != null)
                         {
-                            @Html.DisplayFor(modelItem => item.Department.Name)
+                            totalPrice = item.Price - Convert.ToInt32(item.Price * item.Discount / 100);
+                            <p class="product-price">$@item.Price</p>
+                            <p class="product-price">$@totalPrice</p>
                         }
                         else
                         {
-                            <span class="text-muted">N/A</span>
+                            totalPrice = item.Price;
+                            <p class="product-price1">$@totalPrice</p>
                         }
-                    </td>
-                    <td scope="row">
-                        <a asp-action="ProductDetails" asp-route-id="@item.ID" class="btn btn-info">Details</a>
-                    </td>
-                </tr>
+
+                    </div>
+
+                    @if (item.Discount != null && item.Discount > 0)
+                    {
+
+                        <div class="off-info">
+                            <h2 class="sm-title">@item.Discount% off</h2>
+                        </div>
+                    }
+                </div>
             }
-        </tbody>
-    </table>
+
+        </div>
+    </div>
 </div>
+
 

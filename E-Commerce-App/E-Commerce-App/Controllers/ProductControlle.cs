@@ -3,22 +3,22 @@ using E_Commerce_App.Models;
 using E_Commerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace E_Commerce_App.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProduct _product;
-        private readonly E_CommerceDBContext _commerceDBContext;
+        private readonly IDepartment _department;
         private readonly IAddImage _addImage;
-        private readonly IFormFile _formFile;
-        public ProductController(IProduct product, E_CommerceDBContext commerceDBContext, IAddImage addImage)
+        
+        public ProductController(IProduct product, IAddImage addImage, IDepartment department)
         {
             _product = product;
-            _commerceDBContext = commerceDBContext;
+            _department = department;
             _addImage = addImage;
+
         }
 
 
@@ -37,10 +37,8 @@ namespace E_Commerce_App.Controllers
 
         public IActionResult AddProduct(int departmentID)
         {
-            var product = new Product
-            {
-                DepartmentID = departmentID
-            };
+            
+            var product = new Product();
 
             return View(product);
         }
@@ -50,17 +48,14 @@ namespace E_Commerce_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProduct(Product product, IFormFile file)
         {
-            var departmentExists = _commerceDBContext.Department.Any(d => d.ID == product.DepartmentID);
-            if (!departmentExists)
-            {
-                ModelState.AddModelError("DepartmentID", "The selected department does not exist.");
-                return View("AddProduct", product);
-            }
+           
             if (file != null)
-                await _addImage.uploadImage(file, product);
+            {
+                await _addImage.UploadImage(file, product);
+            }
             else
             {
-                product.imageURL = "";
+                product.ImageURL = "";
             }
             await _product.CreateProductAsync(product);
             return RedirectToAction("product", new { departmentID = product.DepartmentID });
@@ -68,10 +63,12 @@ namespace E_Commerce_App.Controllers
 
 
         [Authorize(Roles = "Admin", Policy = "create")]
+        
         public async Task<IActionResult> DeleteProduct(int id)
         {
+            var product = await _product.GetProductAsync(id);
             await _product.DeleteProductAsync(id);
-            return RedirectToAction("product", new { id });
+            return RedirectToAction("product", new { departmentID = product.DepartmentID });
         }
 
         public async Task<IActionResult> ProductDetails(int id)
@@ -81,16 +78,22 @@ namespace E_Commerce_App.Controllers
         }
 
         [Authorize(Roles = "User", Policy = "update")]
-        public IActionResult EditProduct(int ID)
+        public async Task<IActionResult> EditProduct(int ID)
         {
-            return View(new Product { ID = ID });
+            var existProduct = await _product.GetProductAsync(ID);
+            return View(existProduct);
         }
 
         [HttpPost]
         [Authorize(Roles = "User", Policy = "update")]
         public async Task<IActionResult> EditProduct(Product product, int ID, IFormFile file)
         {
-            await _addImage.uploadImage(file, product);
+            if (file != null)
+            {
+            await _addImage.UploadImage(file, product);
+
+            }
+
 
             await _product.UpdateProductAsync(ID, product);
 

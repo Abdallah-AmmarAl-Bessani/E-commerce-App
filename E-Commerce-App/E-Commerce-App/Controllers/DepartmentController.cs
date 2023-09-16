@@ -70,7 +70,7 @@ namespace E_Commerce_App.Controllers
             var department = new Department();
             // for drop down list
             ViewBag.Category = new SelectList(categories, "ID", "Name");
-            department.CategoryID = categoryId;
+            //department.CategoryID = categoryId;
             return View(department);
         }
 

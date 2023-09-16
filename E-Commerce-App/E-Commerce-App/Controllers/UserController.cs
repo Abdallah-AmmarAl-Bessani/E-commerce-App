@@ -44,57 +44,57 @@ namespace E_Commerce_App.Controllers
             // Remove the authToken cookie
             //Response.Cookies.Delete("authToken");
         }
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Welcome()
-        {
-            if (_signInManager.IsSignedIn(User))
-            {
-                var userId = _userManager.GetUserId(User);
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user != null)
-                {
-                    var username = user.UserName;
-                    var email = user.Email;
+        //[HttpGet]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Welcome()
+        //{
+        //    if (_signInManager.IsSignedIn(User))
+        //    {
+        //        var userId = _userManager.GetUserId(User);
+        //        var user = await _userManager.FindByIdAsync(userId);
+        //        if (user != null)
+        //        {
+        //            var username = user.UserName;
+        //            var email = user.Email;
 
-                    var UserDto = new UserUpdateDTO
-                    {
-                        UserName = username,
-                        Email = email
-                    };
-                    return View(UserDto);
-                }
-            }
-            return View();
-            //var jwtToken = Request.Cookies["authToken"];
-            //if (string.IsNullOrEmpty(jwtToken))
-            //{
-            //    // Handle the case where the token is null or empty.
-            //    return BadRequest("The JWT token is missing or invalid.");
-            //}
-            //var handler = new JwtSecurityTokenHandler();
-            //var jsonToken = handler.ReadToken(jwtToken);
-            //var decodedJwt = jsonToken as JwtSecurityToken;
-            //if (decodedJwt == null)
-            //{
-            //    return BadRequest("The JWT token cannot find the name it  missing.");
-            //}
-            //else
-            //{
-            //    string? username = decodedJwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Name)?.Value;
-            //    string Role = decodedJwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value;
-            //    if (username != null)
-            //    {
-            //        var userDTO = new UserDTO
-            //        {
-            //            UserName = username,
-            //            Roles = new[] { Role }
-            //        };
-            //        return View(userDTO);
-            //    }
-            //    return View();
-            //}
-        }
+        //            var UserDto = new UserUpdateDTO
+        //            {
+        //                UserName = username,
+        //                Email = email
+        //            };
+        //            return View(UserDto);
+        //        }
+        //    }
+        //    return View();
+        //    //var jwtToken = Request.Cookies["authToken"];
+        //    //if (string.IsNullOrEmpty(jwtToken))
+        //    //{
+        //    //    // Handle the case where the token is null or empty.
+        //    //    return BadRequest("The JWT token is missing or invalid.");
+        //    //}
+        //    //var handler = new JwtSecurityTokenHandler();
+        //    //var jsonToken = handler.ReadToken(jwtToken);
+        //    //var decodedJwt = jsonToken as JwtSecurityToken;
+        //    //if (decodedJwt == null)
+        //    //{
+        //    //    return BadRequest("The JWT token cannot find the name it  missing.");
+        //    //}
+        //    //else
+        //    //{
+        //    //    string? username = decodedJwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Name)?.Value;
+        //    //    string Role = decodedJwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value;
+        //    //    if (username != null)
+        //    //    {
+        //    //        var userDTO = new UserDTO
+        //    //        {
+        //    //            UserName = username,
+        //    //            Roles = new[] { Role }
+        //    //        };
+        //    //        return View(userDTO);
+        //    //    }
+        //    //    return View();
+        //    //}
+        //}
 
         public IActionResult Register()
         {
@@ -129,17 +129,16 @@ namespace E_Commerce_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult<UserDTO>> Login(LogInDTO loginDto)
         {
-			var user = await _user.Authenticate(loginDto.UserName, loginDto.Password, this.ModelState);
-			if (ModelState.IsValid)
-			{
-				return RedirectToAction("Index", "Home");
-			}
-			return View(user);
-		
 
-
+                var user = await _user.Authenticate(loginDto.UserName, loginDto.Password, this.ModelState);
+              if (ModelState.IsValid)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return View(user);
+            //}
+            //return View();
             //string jwtToken = user.Token;
-
             //var cookieOptions = new CookieOptions
             //{
             //    HttpOnly = true,

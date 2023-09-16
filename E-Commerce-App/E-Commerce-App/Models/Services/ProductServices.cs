@@ -38,19 +38,27 @@ namespace E_Commerce_App.Models.Services
 			}
 		}
 
-
-
 		public async Task<List<Product>> GetAllProductAsync(int departmentID)
 		{
 
-			return await _commerceDBContext.Product.Where(x=>x.DepartmentID== departmentID)
+			return await _commerceDBContext.Product.Include(dp => dp.Department).Where(x=>x.DepartmentID== departmentID)
 				.Select(x => new Product
 			{
 				ID = x.ID,
 				Name = x.Name,
 				Price = x.Price,
 				Quantity = x.Quantity,
-				imageURL = x.imageURL
+				ImageURL = x.ImageURL,
+				Discount = x.Discount,
+				DepartmentID = x.DepartmentID,
+				Department = new Department
+				{
+					ID = x.Department.ID,
+					Name = x.Department.Name,
+					CategoryID = x.Department.Category.ID
+
+				}
+				
 			}).ToListAsync();
 		}
 		[AllowAnonymous]
@@ -61,8 +69,10 @@ namespace E_Commerce_App.Models.Services
 
         public async Task<Product> GetProductAsync(int ID)
 		{
-			var product = await _commerceDBContext.Product.FindAsync(ID);
+			var product = await _commerceDBContext.Product.Include(dep => dep.Department)
+				.FirstOrDefaultAsync(pro => pro.ID == ID);
 			
+
 
 			return product;
 		}
@@ -84,15 +94,17 @@ namespace E_Commerce_App.Models.Services
 				product1.Price = product.Price;
 				product1.Name = product.Name;
 				product1.Quantity = product.Quantity;
+				product1.Discount = product.Discount;
+				if(product.DepartmentID != null)
+				{
+					product1.DepartmentID = product.DepartmentID;
+				}
 				
-				if (product.imageURL != null)
+				if (product.ImageURL != null)
 				{
-					product1.imageURL = product.imageURL;
+					product1.ImageURL = product.ImageURL;
 				}
-				else
-				{
-					product1.imageURL = "";
-				}
+				
 
 				_commerceDBContext.Entry(product1).State = EntityState.Modified;
 				await _commerceDBContext.SaveChangesAsync();
