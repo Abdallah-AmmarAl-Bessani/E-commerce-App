@@ -4,27 +4,36 @@
     ViewData["Title"] = "AddCategory";
 }
 
-<h1>AddCategory</h1>
-
-<h4>Category</h4>
+<h1 class="text-light">AddCategory</h1>
+<div class="d-flex justify-content-between text-light">
+    <h4>Category</h4>
+    <div>
+        <a asp-action="Index" class="text-decoration-none previous text-light btn btn-danger mt-2">  &laquoBack to List</a>
+    </div>
+</div>
 <hr />
-<div class="row">
+
+
+<div class="row justify-content-center text-light">
     <div class="col-md-4">
-        <form asp-action="AddCategory">
+        <form asp-action="AddCategory" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-2">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label"> upload image</label>
+                    <input class="form-control" type="file" id="formFile" name="file" accept=".png,.jpg">
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="add" class="btn btn-primary px-4" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

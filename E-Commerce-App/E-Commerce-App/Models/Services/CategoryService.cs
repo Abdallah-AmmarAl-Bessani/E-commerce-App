@@ -54,6 +54,7 @@ namespace E_Commerce_App.Models.Services
             {
                 x.ID = category.ID;
                 x.Name = category.Name;
+                x.ImageURL=category.ImageURL;
 
                 _dbContext.Entry(x).State= EntityState.Modified;
 

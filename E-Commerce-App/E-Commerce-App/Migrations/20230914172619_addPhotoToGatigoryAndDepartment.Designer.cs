@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce_App.Migrations
 {
     [DbContext(typeof(E_CommerceDBContext))]
-    [Migration("20230912202230_UpdateDataBase")]
-    partial class UpdateDataBase
+    [Migration("20230914172619_addPhotoToGatigoryAndDepartment")]
+    partial class addPhotoToGatigoryAndDepartment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,9 @@ namespace E_Commerce_App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -95,6 +98,9 @@ namespace E_Commerce_App.Migrations
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

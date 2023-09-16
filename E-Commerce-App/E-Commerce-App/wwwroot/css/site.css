@@ -18,5 +18,55 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    
 }
+/* Add CSS styles for the content div */
+#content {
+    width:100%;
+    text-align: center;
+    padding: 100px; /* Adjust as needed */
+    color: white; /* Text color on top of the image */
+}
+
+.cont {
+    /* Add your background image URL and other CSS properties here */
+    background-image: url('https://lab29images.blob.core.windows.net/images/ee.jpg');
+    background-size: cover; /* Adjust as needed */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* To make it fixed */
+    width: 100%;
+    z-index: -1;
+    /* You can also specify background position, color, and other styles here */
+}
+
+
+
+.x {
+    transition: opacity 0.9s ease !important;
+    opacity:0;
+}
+
+.card:hover .x{
+    opacity:1;
+}
+
+.card:hover img {
+    transform: scale(1.1) !important;
+   
+}
+
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #212529;
+    border-top: 1px solid #DEE2E6;
+    text-align: center;
+    padding: 15px;
+}
+
+

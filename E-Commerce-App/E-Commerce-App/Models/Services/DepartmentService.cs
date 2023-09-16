@@ -44,7 +44,8 @@ namespace E_Commerce_App.Models.Services
 
         public async Task<List<Department>> GetDepartments(int categoryId)
         {
-            var departments = await _dbContext.Department.Where(cId => cId.CategoryID == categoryId).ToListAsync();
+
+            var departments = await _dbContext.Department.Include(x=>x.Category).Where(cId => cId.CategoryID == categoryId).ToListAsync();
 
             return departments;
         }
@@ -56,6 +57,7 @@ namespace E_Commerce_App.Models.Services
             if (departmentDetails != null)
             {
                 departmentDetails.Name = department.Name;
+                departmentDetails.ImageURL = department.ImageURL;
 
                 _dbContext.Entry(departmentDetails).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();

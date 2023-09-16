@@ -12,14 +12,16 @@ namespace E_Commerce_App.Controllers
     {
         private readonly IDepartment _department;
         private readonly ICategory _category;
+        private readonly IAddImage _addImage;
 
         private readonly ILogger<DepartmentController> _logger;
 
-        public DepartmentController(ILogger<DepartmentController> logger, IDepartment department, ICategory category)
+        public DepartmentController(ILogger<DepartmentController> logger, IDepartment department, ICategory category, IAddImage addImage)
         {
             _logger = logger;
             _department = department;
             _category = category;
+            _addImage = addImage;
         }
 
         public async Task<IActionResult> Departments(int categoryId)
@@ -40,12 +42,14 @@ namespace E_Commerce_App.Controllers
         [Authorize(Policy = "Update")]
         public IActionResult EditDepartment(int ID, int CategoryID)
         {
+
             return View(new Department { ID = ID, CategoryID = CategoryID });
         }
         [Authorize(Policy = "Update")]
         [HttpPost]
-        public async Task<IActionResult> EditDepartment(Department department, int ID, int CategoryID)
+        public async Task<IActionResult> EditDepartment(Department department, int ID, int CategoryID, IFormFile file)
         {
+            await _addImage.uploadImage(file, department);
             await _department.UpdateDepartment(department, ID);
 
             return View(department);

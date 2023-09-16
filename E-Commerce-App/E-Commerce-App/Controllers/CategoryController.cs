@@ -9,9 +9,11 @@ namespace E_Commerce_App.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategory _category;
-        public CategoryController(ICategory category)
+        private readonly IAddImage _addImage;
+        public CategoryController(ICategory category , IAddImage addImage)
         {
             _category = category;
+            _addImage = addImage;
         }
 
         
@@ -36,8 +38,9 @@ namespace E_Commerce_App.Controllers
 
         [HttpPost]
         [Authorize(Policy = "update", Roles = "User")]
-        public async Task<IActionResult> EditCategory(Category category, int ID)
+        public async Task<IActionResult> EditCategory(Category category, int ID,IFormFile file)
         {
+            await _addImage.uploadImage(file,category);
             await _category.UpdateCategory(category, ID);
 
             return View(category);

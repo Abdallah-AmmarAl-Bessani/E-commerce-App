@@ -31,11 +31,6 @@ namespace E_Commerce_App.Controllers
         {
             return View();
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
         public async Task<IActionResult> Logout()
         {
 
@@ -44,7 +39,7 @@ namespace E_Commerce_App.Controllers
             await _signInManager.SignOutAsync(); // Sign the user out
 
             // Redirect to the login page or return a success message
-            return RedirectToAction("Index", "User");
+            return RedirectToAction("Index", "Home");
 
             // Remove the authToken cookie
             //Response.Cookies.Delete("authToken");
@@ -134,20 +129,13 @@ namespace E_Commerce_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult<UserDTO>> Login(LogInDTO loginDto)
         {
-            if (loginDto.UserName != null && loginDto.Password != null)
-            {
-                var user = await _user.Authenticate(loginDto.UserName, loginDto.Password, this.ModelState);
-                if (user != null)
-                {
-
-                    // Redirect to a protected page or return a success message
-                    return RedirectToAction("Index", "Home");
-                }
-
-
-                return View(user);
-            }
-            return View();
+			var user = await _user.Authenticate(loginDto.UserName, loginDto.Password, this.ModelState);
+			if (ModelState.IsValid)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			return View(user);
+		
 
 
             //string jwtToken = user.Token;
