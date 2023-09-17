@@ -3,8 +3,8 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="p-1 text-light d-flex flex-column flex-md-row ">
-        Welcome, @User.Identity.Name!
+    <div class="p-1 text-light d-flex flex-column flex-md-row align-items-center ">
+        <span>Welcome @User.Identity.Name!</span>
         <a class="btn btn-primary btn-sm text-decoration-none ms-lg-3  mt-2 mt-lg-0" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
     </div>
 }

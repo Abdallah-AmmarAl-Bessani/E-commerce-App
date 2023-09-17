@@ -16,10 +16,10 @@
 
         }
 
-        <a class="btn btn-success mx-2" asp-controller="Department" asp-action="Departments" asp-route-categoryId="@categoryId">Back</a>
+        <a class="btn btn-success mx-2" asp-controller="Category" asp-action="Index">Back</a>
 
-        <h1 class="lg-title">Special @departmentName With Offers</h1>
-        <p class="text-center col-8 mx-auto my-1 text-dark">A new Products of All categories now is available and on sale up to 35% what are you waiting ? come on and choose your Product plant and buy it </p>
+        <h1 class="lg-title text-white">Special @departmentName With Offers</h1>
+        <p class="text-center col-8 mx-auto my-1 text-white">A new Products of All categories now is available and on sale up to 35% what are you waiting ? come on and choose your Product plant and buy it </p>
         <div class="product-items">
 
             @foreach (var item in Model)

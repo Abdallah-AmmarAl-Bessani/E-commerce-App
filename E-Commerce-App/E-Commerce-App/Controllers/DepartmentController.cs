@@ -49,7 +49,7 @@ namespace E_Commerce_App.Controllers
         [HttpPost]
         public async Task<IActionResult> EditDepartment(Department department, int ID, int CategoryID, IFormFile file)
         {
-            await _addImage.uploadImage(file, department);
+            await _addImage.UploadImage(file, department);
             await _department.UpdateDepartment(department, ID);
 
             return View(department);

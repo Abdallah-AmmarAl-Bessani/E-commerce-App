@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap');
 :root {
     --white-light: rgba(255, 255, 255, 0.5);
-    --alice-blue: #f8f9fa;
+    --alice-blue: #272929;
+    --warning: #d0f4ea;
     --carribean-green: #40c9a2;
     --gray: #ededed;
 }
@@ -49,20 +50,25 @@ body {
 
 
 
-.x {
-    transition: opacity 0.9s ease !important;
-    opacity:0;
+.card img {
+    transition: transform 0.9s ease !important;
+    
 }
 
-.card:hover .x{
-    opacity:1;
-}
+
 
 .card:hover img {
     transform: scale(1.1) !important;
    
 }
 
+.text-warning {
+    color: var(--warning) !important;
+}
+
+.bg-warning {
+    background-color: var(--warning) !important;
+}
 
 
 .footer {

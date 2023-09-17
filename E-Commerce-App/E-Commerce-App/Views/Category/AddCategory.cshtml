@@ -4,42 +4,44 @@
     ViewData["Title"] = "AddCategory";
 }
 
-<h1 class="text-light">AddCategory</h1>
-<div class="d-flex justify-content-between text-light">
-    <h4>Category</h4>
-    <div>
-        <a asp-action="Index" class="text-decoration-none previous text-light btn btn-danger mt-2">  &laquoBack to List</a>
-    </div>
-</div>
-<hr />
+<a asp-action="Index" class="float-end my-3 me-3 text-decoration-none previous btn btn-danger ">
+    <i class="fa-solid fa-caret-left me-2"></i>
+    Categories
+</a>
 
 
-<div class="row justify-content-center text-light">
-    <div class="col-md-4">
-        <form asp-action="AddCategory" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-2">
-                <div class="mb-3">
-                    <label for="formFile" class="form-label"> upload image</label>
-                    <input class="form-control" type="file" id="formFile" name="file" accept=".png,.jpg">
+
+<div id="accountContainer"
+     class="container shadow rounded-4 d-flex flex-column   p-4 col-11 col-sm-10 col-md-8 col-lg-7 col-xl-4 m-auto text-dark  position-absolute top-50 start-50 translate-middle bg-light rounded-3">
+    <div class="row flex-column">
+        <div class="my-3 text-center">
+            <h2>Create New Category</h2>
+        </div>
+        <div class="px-3 my-3">
+
+            <form asp-action="AddCategory" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group my-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group mt-2">
-                <input type="submit" value="add" class="btn btn-primary px-4" />
-            </div>
-        </form>
+                <div class="form-group my-3">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label"> Upload image</label>
+                        <input class="form-control" type="file" id="formFile" name="file" accept=".png,.jpg">
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="submit" value="add" class="btn btn-primary px-4" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+    </div>
 
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}

@@ -7,9 +7,8 @@
     var totalPrice = 0.0;
 }
 
-<div>
 
-    @*   @if ((User.HasClaim(c => c.Type == "permissions" && c.Value == "update")) && User.IsInRole("User"))
+@*   @if ((User.HasClaim(c => c.Type == "permissions" && c.Value == "update")) && User.IsInRole("User"))
     {
     @Html.ActionLink("Edit", "EditProduct", new { ID = Model?.ID })
     }
@@ -18,10 +17,14 @@
     {
     @Html.ActionLink("Delete", "DeleteProduct", new { id = Model?.ID})
     } *@
-    @* @Html.ActionLink("Back", "product", new { departmentId = Model?.DepartmentID}) *@
-    <a asp-controller="Product" asp-action="product" asp-route-departmentID="@Model.DepartmentID">Back to List</a>
-</div>
-<div class="products d-flex flex-column justify-content-center align-items-center mx-auto ">
+@* @Html.ActionLink("Back", "product", new { departmentId = Model?.DepartmentID}) *@
+<div id="accountContainer"
+     class="container ">
+    <a asp-controller="Product" asp-action="product" asp-route-departmentID="@Model.DepartmentID"
+       class="float-end my-3 me-3 text-decoration-none previous btn btn-danger"
+       asp-route-departmentID="@Model.DepartmentID"> <i class="fa-solid fa-caret-left me-2"></i> Products</a>
+
+    <div class="products d-flex flex-column justify-content-center align-items-center mx-auto">
 
 
 
@@ -55,7 +58,7 @@
                         <i class="fa-solid fa-trash"></i>
                     </a>
 
-                    
+
                 }
 
             </div>
@@ -97,7 +100,7 @@
 
     </div>
 </div>
-@* 
+@*
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -106,7 +109,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are You sure you want to Delete this product @Model.Name ? 
+                Are You sure you want to Delete this product @Model.Name ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -115,6 +118,6 @@
         </div>
     </div>
 </div>
-
  *@
+</div>
 @await Html.PartialAsync("_DeleteProductModal")

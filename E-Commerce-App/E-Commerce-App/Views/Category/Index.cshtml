@@ -7,38 +7,55 @@
 
 
 
-<div class="d-flex flex-column min-vh-100">
-    <div class="text-center mb-3 pt-2">
+<div class="container d-flex flex-column min-vh-100">
+    <div class="d-flex justify-content-center my-3 pt-2">
         @if (User.IsInRole("Admin"))
         {
-            <a class="btn btn-success d-flex float-end" asp-action="AddCategory">Add</a>
+            <a class="btn btn-success py-2 px-5" asp-action="AddCategory">Add</a>
         }
     </div>
+    <div class="card-deck row flex-column flex-md-row my-5 justify-content-center mx-auto">
+       
 
-    <div class="card-deck d-flex flex-column flex-md-row gap-2 align-items-center justify-content-center mt-5">
         @foreach (var item in Model)
         {
-            <div class="card gap-3 z-6 rounded-4 border border-primary" style="width: 18rem;">
-                <div class="crad-img py-2 bg-light rounded-4">
-                    @if (item.ImageURL == null)
-                    {
+            <div class="col-lg-4  col-md-6 col-12 category-card my-3 mb-4">
+                <div class="card border-0">
 
-                        <img src="https://ammarltuc.blob.core.windows.net/images/785054-ecommerce-istock-020119.jpg" class="categoryImg card-img-top circleImg" alt="Image Alt Text">
+                    <a class="d-block" asp-action="CategoryDetails" asp-route-id="@item.ID">
+                        @if (item.ImageURL == null)
+                        {
+                            <img class="d-block" src="https://ammarltuc.blob.core.windows.net/images/785054-ecommerce-istock-020119.jpg" alt="Video Games" height="200">
 
-                    }
-                    else
-                    {
-                        <img src="@item.ImageURL" class="card-img-top categoryImg circleImg" alt="Image Alt Text" style="height:12rem;">
-                    }
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                   <div class="x d-flex flex-column flex-md-row">
-                        <a asp-controller="Department" asp-action="Departments" asp-route-categoryId="@item.ID" class="btn btn-primary me-2">View Departments</a>
-                        <a asp-action="CategoryDetails" asp-route-id="@item.ID" class="btn btn-secondary px-3">Details</a>
+                        }
+                        else
+                        {
+                            <img class="d-block" src="@item.ImageURL" alt="@item.Name" height="200">
+                        }
+                    </a>
+                    <div class="card-body pb-2 lh-lg">
+                        <h2 class="h6 mb-2">@item.Name</h2>
+                        <div class="list-group list-group-flush font-size-sm">
+                            @foreach (var dp in item.Departments)
+                            {
+                                <a class="list-group-item list-group-item-action" asp-controller="Product" asp-action="Product" asp-route-departmentID="@dp.ID">
+                                    @dp.Name
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-chevron-right ml-1" style="width: .875rem; height: .875rem;">
+                                        <polyline points="9 18 15 12 9 6">
+
+                                        </polyline>
+                                    </svg>
+                                </a>
+                            }
+                            <a asp-action="CategoryDetails" asp-route-id="@item.ID" class="list-group-item list-group-item-action">Details</a>
+                        </div>
+                        @*  <a asp-controller="Department" asp-action="Departments" asp-route-categoryId="@item.ID" class="btn btn-primary me-2">View Departments</a>
+                    <a asp-action="CategoryDetails" asp-route-id="@item.ID" class="btn btn-secondary px-3">Details</a> *@
                     </div>
-           
+
+
                 </div>
             </div>
         }

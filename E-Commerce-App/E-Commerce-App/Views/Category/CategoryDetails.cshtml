@@ -5,38 +5,53 @@
     ViewData["Title"] = "Category Details";
 }
 
-<h1 class="text-center text-light">Category Details</h1>
-<div class="d-flex justify-content-between align-items-center px-3 my-3 text-light">
-    <h4>Category</h4>
+      <a asp-action="Index" class="float-end my-3 me-3 text-decoration-none previous btn btn-danger ">
+                    <i class="fa-solid fa-caret-left me-2"></i>
+                    Categories
+                </a>
 
-    <button class="btn btn-danger">
-        <a asp-action="Index" class="text-decoration-none previous text-light">
-            &laquo Back to List
-        </a>
-    </button>
+<div id="accountContainer"
+     class="container shadow rounded-4 d-flex flex-column   p-4 col-11 col-sm-10 col-md-8 col-lg-7 col-xl-4 m-auto text-dark  position-absolute top-50 start-50 translate-middle bg-light rounded-3">
 
-</div>
+     <div class="row flex-column">
 
-<div class="card text-dark p-4 position-absolute top-50 start-50 translate-middle bg-gradient border-0">
-    <div class="crad-img py-2 bg-light rounded-4 mb-2 mt-3">
-        <img src="@Html.DisplayFor(model=> model.ImageURL)" class="card-img-top" alt="Image Alt Text" style="height:12rem;">
+        <h1 class="text-center ">@Model.Name Details</h1>
+        <div class=px-3 my-3">
+
+            <div class="crad-img py-2 bg-light rounded-4 mb-2 mt-3">
+                @if (Model.ImageURL == null)
+                {
+                    <img class="d-block" src="https://ammarltuc.blob.core.windows.net/images/785054-ecommerce-istock-020119.jpg" alt="Video Games" height="200">
+
+                }
+                else
+                {
+                    <img class="d-block" src="@Model.ImageURL" alt="@Model.Name" height="200">
+                }
+            </div>
+            <div class="card-title d-flex">
+                <h5 class="card-title me-2 fw-bold">@Html.DisplayNameFor(model => model.Name):</h5>
+                <p class="card-text fw-medium">@Html.DisplayFor(model => model.Name)</p>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                @if ((User.HasClaim(c => c.Type == "permissions" && c.Value == "update")) && User.IsInRole("User"))
+                {
+                    <a asp-action="EditCategory" asp-route-ID="@Model.ID" type="button" class="btn-cart">
+                        Edit
+                        <span><i class="fa-regular fa-pen-to-square"></i></span>
+                    </a>
+                    
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="DeleteCategory" class="text-decoration-none btn btn-danger" asp-route-id="@Model.ID">Delete</a>
+                }
+            </div>
+
+        </div>
     </div>
-    <div class="card-title d-flex">
-       <h5 class="card-title me-2 fw-bold">@Html.DisplayNameFor(model => model.Name):</h5>
-        <p class="card-text fw-medium">@Html.DisplayFor(model => model.Name)</p>
-    </div>
-    <div class="d-flex justify-content-center">
-        @if ((User.HasClaim(c => c.Type == "permissions" && c.Value == "update")) && User.IsInRole("User"))
-        {
-            @Html.ActionLink("Edit", "EditCategory", new { ID = Model.ID})
-        }
 
-        @if (User.IsInRole("Admin"))
-        {
-            <a asp-action="DeleteCategory" class="text-decoration-none btn btn-danger" asp-route-id="@Model.ID">Delete</a>
-        }
-    </div>
-
-  
 </div>
 

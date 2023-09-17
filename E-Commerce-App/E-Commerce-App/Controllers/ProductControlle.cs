@@ -12,7 +12,7 @@ namespace E_Commerce_App.Controllers
         private readonly IProduct _product;
         private readonly IDepartment _department;
         private readonly IAddImage _addImage;
-        
+
         public ProductController(IProduct product, IAddImage addImage, IDepartment department)
         {
             _product = product;
@@ -37,7 +37,7 @@ namespace E_Commerce_App.Controllers
 
         public IActionResult AddProduct(int departmentID)
         {
-            
+
             var product = new Product();
 
             return View(product);
@@ -48,7 +48,7 @@ namespace E_Commerce_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProduct(Product product, IFormFile file)
         {
-           
+
             if (file != null)
             {
                 await _addImage.UploadImage(file, product);
@@ -63,7 +63,7 @@ namespace E_Commerce_App.Controllers
 
 
         [Authorize(Roles = "Admin", Policy = "create")]
-        
+
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _product.GetProductAsync(id);
@@ -90,7 +90,7 @@ namespace E_Commerce_App.Controllers
         {
             if (file != null)
             {
-            await _addImage.UploadImage(file, product);
+                await _addImage.UploadImage(file, product);
 
             }
 

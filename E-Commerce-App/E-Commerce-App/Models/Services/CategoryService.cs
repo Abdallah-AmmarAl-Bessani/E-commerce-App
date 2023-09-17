@@ -36,7 +36,7 @@ namespace E_Commerce_App.Models.Services
 
         public async Task<List<Category>> GetCategories()
         {
-            return await _dbContext.Category.ToListAsync();
+            return await _dbContext.Category.Include(dp => dp.Departments).ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
@@ -54,7 +54,10 @@ namespace E_Commerce_App.Models.Services
             {
                 x.ID = category.ID;
                 x.Name = category.Name;
-                x.ImageURL=category.ImageURL;
+                if (category.ImageURL != null)
+                {
+                    x.ImageURL = category.ImageURL;
+                }
 
                 _dbContext.Entry(x).State= EntityState.Modified;
 

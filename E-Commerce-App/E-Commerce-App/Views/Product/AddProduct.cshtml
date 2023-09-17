@@ -4,80 +4,85 @@
     ViewData["Title"] = "AddProduct";
     var departmentId = ViewContext.HttpContext.Request.Query["departmentID"];
 }
+<a asp-controller="Product" asp-action="product" class="float-end my-3 me-3 text-decoration-none previous btn btn-danger "
+   asp-route-departmentID="@departmentId"> <i class="fa-solid fa-caret-left me-2"></i> Products</a>
 
-<h1>Add Product</h1>
-
-<h4>ProductDTO</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="Product" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
-            @Html.AntiForgeryToken()
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="DepartmentID" />
-            @* <div class="form-group">
+<div id="accountContainer"
+     class="container shadow rounded-4 d-flex flex-column   p-4 col-11 col-sm-10 col-md-8 col-lg-7 col-xl-4 m-auto text-dark  position-absolute top-50 start-50 translate-middle bg-light rounded-3">
+    <div class="row flex-column">
+        <div class="my-3 text-center">
+            <h2>Create New Product</h2>
+        </div>
+        <div class="my-3 ">
+            <form asp-controller="Product" asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group my-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group  my-3">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="form-group my-3">
+                    <label asp-for="Discount" class="control-label"></label>
+                    <input asp-for="Discount" class="form-control" />
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="DepartmentID" />
+                @* <div class="form-group">
                 <label asp-for="DepartmentID" class="control-label"></label>
                 <select asp-for="DepartmentID" class="form-control" asp-items="ViewBag.Department">
-                    <option selected>Please Select A Department</option>
+                <option selected>Please Select A Department</option>
                 </select>
-            </div> *@
+                </div> *@
 
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Default file input example</label>
-                <input class="form-control" type="file" id="formFile" name="file" accept=".png,.jpg">
-            </div>
-            @* <div class="form-group">
+                <div class="my-3">
+                    <label for="formFile" class="form-label">Upload Image</label>
+                    <input class="form-control" type="file" id="formFile" name="file" accept=".png,.jpg">
+                </div>
+                @* <div class="form-group">
                 <label for="ImageURL" class="form-label ms-0 ms-md-2 mt-2 mt-md-0 fw-medium fs-6">
-                    <span>Add Image <span class="small text-danger">optional</span></span>
+                <span>Add Image <span class="small text-danger">optional</span></span>
                 </label>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input d-none" id="ImageURL" name="file"
-                           accept=".png,.jpg" />
-                    <label id="ImageURLLabel"
-                           class="custom-file-label form-control rounded-4 d-flex flex-row justify-content-between align-items-center text-body-small"
-                           for="ImageURL">
-                        <span class="small">"png, jpg"</span>
-                        <div class="logo me-2">
-                            <svg width="20" height="20" viewBox="0 0 31 31" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M0.948242 16.4756C0.948242 13.0059 3.68106 10.174 7.11151 10.015L7.41595 10.0079H8.77658C9.38064 10.0079 9.87033 10.4976 9.87033 11.1017C9.87033 11.6554 9.45885 12.113 8.92499 12.1855L8.77658 12.1954H7.41595C5.13672 12.1954 3.27321 13.9775 3.14301 16.2242L3.13574 16.4756L3.13574 23.585C3.13574 25.863 4.91802 27.7263 7.1645 27.8565L7.41595 27.8638H23.6472C25.9263 27.8638 27.7899 26.0818 27.9201 23.8364L27.9274 23.585V16.4611C27.9274 14.1899 26.1517 12.3325 23.9137 12.2027L23.6632 12.1954H22.288C21.684 12.1954 21.1943 11.7057 21.1943 11.1017C21.1943 10.548 21.6058 10.0903 22.1396 10.0179L22.288 10.0079H23.6632C27.1213 10.0079 29.9444 12.7304 30.1075 16.1485L30.1149 16.4611V23.585C30.1149 27.0536 27.3818 29.8853 23.9516 30.0442L23.6472 30.0513H7.41595C3.94649 30.0513 1.11429 27.3187 0.955283 23.8894L0.948242 23.585L0.948242 16.4756ZM14.7415 0.438025C14.9406 0.230173 15.2209 0.10075 15.5314 0.10075C15.8451 0.10075 16.1279 0.232792 16.3274 0.444323L20.5588 4.69313C20.985 5.12114 20.9836 5.81366 20.5556 6.23992C20.1665 6.62743 19.5588 6.66148 19.1313 6.3429L19.0088 6.23675L16.6252 3.84498V18.7543C16.6252 19.3584 16.1355 19.848 15.5314 19.848C14.9777 19.848 14.5201 19.4366 14.4477 18.9027L14.4377 18.7543L14.4377 3.84253L12.0554 6.23661C11.6679 6.62578 11.0604 6.66243 10.6315 6.34568L10.5086 6.24005C10.1194 5.85261 10.0827 5.24506 10.3995 4.81617L10.5051 4.69326L14.7415 0.438025Z"
-                                      fill="#3E3E3E" />
-                            </svg>
-                        </div>
-                    </label>
+                <input type="file" class="custom-file-input d-none" id="ImageURL" name="file"
+                accept=".png,.jpg" />
+                <label id="ImageURLLabel"
+                class="custom-file-label form-control rounded-4 d-flex flex-row justify-content-between align-items-center text-body-small"
+                for="ImageURL">
+                <span class="small">"png, jpg"</span>
+                <div class="logo me-2">
+                <svg width="20" height="20" viewBox="0 0 31 31" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M0.948242 16.4756C0.948242 13.0059 3.68106 10.174 7.11151 10.015L7.41595 10.0079H8.77658C9.38064 10.0079 9.87033 10.4976 9.87033 11.1017C9.87033 11.6554 9.45885 12.113 8.92499 12.1855L8.77658 12.1954H7.41595C5.13672 12.1954 3.27321 13.9775 3.14301 16.2242L3.13574 16.4756L3.13574 23.585C3.13574 25.863 4.91802 27.7263 7.1645 27.8565L7.41595 27.8638H23.6472C25.9263 27.8638 27.7899 26.0818 27.9201 23.8364L27.9274 23.585V16.4611C27.9274 14.1899 26.1517 12.3325 23.9137 12.2027L23.6632 12.1954H22.288C21.684 12.1954 21.1943 11.7057 21.1943 11.1017C21.1943 10.548 21.6058 10.0903 22.1396 10.0179L22.288 10.0079H23.6632C27.1213 10.0079 29.9444 12.7304 30.1075 16.1485L30.1149 16.4611V23.585C30.1149 27.0536 27.3818 29.8853 23.9516 30.0442L23.6472 30.0513H7.41595C3.94649 30.0513 1.11429 27.3187 0.955283 23.8894L0.948242 23.585L0.948242 16.4756ZM14.7415 0.438025C14.9406 0.230173 15.2209 0.10075 15.5314 0.10075C15.8451 0.10075 16.1279 0.232792 16.3274 0.444323L20.5588 4.69313C20.985 5.12114 20.9836 5.81366 20.5556 6.23992C20.1665 6.62743 19.5588 6.66148 19.1313 6.3429L19.0088 6.23675L16.6252 3.84498V18.7543C16.6252 19.3584 16.1355 19.848 15.5314 19.848C14.9777 19.848 14.5201 19.4366 14.4477 18.9027L14.4377 18.7543L14.4377 3.84253L12.0554 6.23661C11.6679 6.62578 11.0604 6.66243 10.6315 6.34568L10.5086 6.24005C10.1194 5.85261 10.0827 5.24506 10.3995 4.81617L10.5051 4.69326L14.7415 0.438025Z"
+                fill="#3E3E3E" />
+                </svg>
+                </div>
+                </label>
                 </div>
                 <span asp-validation-for="ImageURL" class="text-danger"></span>
 
-            </div> *@
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                </div> *@
+                <div class="form-group my-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-controller="Product" asp-action="product" asp-route-departmentID="@departmentId">Back to List</a>
 </div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
+    }

@@ -1,55 +1,64 @@
-@model E_Commerce_App.Models.DTO.RegisterUserDTO
-<form class="form-inline" asp-action="Register">
+﻿@model E_Commerce_App.Models.DTO.RegisterUserDTO
+@{
+    ViewData["Title"] = "Sign up Page";
+}
+<div id="accountContainer"
+     class="container shadow rounded-4 d-flex flex-column   p-4 col-11 col-sm-10 col-md-8 col-lg-7 col-xl-4 m-auto text-dark  position-absolute top-50 start-50 translate-middle bg-light rounded-3">
+    <div class="row flex-column z-4">
+        <h1 class=" my-3 text-center">Sign Up Form</h1>
+        ﻿<form class="form-inline " asp-action="Register">
 
-        @* <div class="mt-2">
-        <span asp-validation-for="UserName" class="text-danger bg-opacity-25 bg-danger"></span>
-        </div> *@
+            <div class="form-group my-2">
+                <label for="UserName">Username:</label>
+                <input type="text" asp-for="UserName" class="form-control" placeholder="Username">
+                <div class="mt-2">
+                </div>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
 
-    </div>
-    <div class="form-group">
-        <label class="sr-only" for="Email">Email:</label>
-        <input type="text" name="Email" class="form-control" id="Email" placeholder="example@email.com">
-        @* <div class="mt-2">
-        <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
-        </div> *@
+            <div class="form-group my-2">
+                <label for="Email">Email:</label>
+                <input type="text" asp-for="Email" class="form-control" placeholder="example@email.com">
+                <div class="mt-2">
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
 
-    </div>
-    <div class="form-group">
-        <label class="sr-only" for="Password">Password:</label>
-        <input type="password" name="Password" class="form-control" id="Password" placeholder="***********">
-        @*   <div class="mt-2">
-        <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
-        </div> *@
+            <div class="form-group my-2">
+                <label for="Password">Password:</label>
+                <input type="password" asp-for="Password" class="form-control" placeholder="***********">
+                <div class="mt-2">
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
 
-
-        <div class="form-group">
-            <label class="sr-only" for="PhoneNumber">Phone number:</label>
-            <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="009620000000">
-            <div class="mt-2">
+            <div class="form-group my-2">
+                <label for="PhoneNumber">Phone number:</label>
+                <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="009620000000">
+                <div class="mt-2">
+                </div>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-        </div>
+
+            <div class="form-group my-2">
+                <label>Roles:</label>
+                <input type="checkbox" name="Roles" value="Admin"> Admin
+                <input type="checkbox" name="Roles" value="User"> User
+                <!-- Add more roles as needed -->
+            </div>
+
+            
+            <div class="form-group d-flex justify-content-center my-3">
+                <input type ="submit" class="btn btn-primary my-2 p-2" value="Sign Up"  />
+            </div>
+        </form>
 
     </div>
-    <div class="form-group">
-        <label class="sr-only" for="PhoneNumber">Phone number:</label>
-        <input type="text" name="PhoneNumber" class="form-control" id="PhoneNumber" placeholder="009620000000">
-        @*         <div class="mt-2">
-        <span asp-validation-for="PhoneNumber" class="text-danger bg-opacity-25 bg-danger"></span>
-        </div>
-        *@
-    </div>
-    <div class="form-group">
-        <label class="sr-only">Roles:</label>
-        <input type="checkbox" name="Roles" value="Admin"> Admin
-        <input type="checkbox" name="Roles" value="User"> User
-        <!-- Add more roles as needed -->
-    </div>
-    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-    {
-        <div class="alert alert-danger text-danger p-2 my-2">@error.ErrorMessage</div>
-    }
-    <button type="submit" class="btn btn-primary">Sign up</button>
+</div>
 
-</form>>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

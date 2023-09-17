@@ -39,7 +39,6 @@ namespace E_Commerce_App.Models.Services
 
             return Model;
 	
-
         }
     }
 }

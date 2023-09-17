@@ -31,19 +31,23 @@ namespace E_Commerce_App.Controllers
         }
 
         [Authorize(Policy ="update", Roles = "User")]
-        public IActionResult EditCategory(int ID)
+        public async Task<IActionResult> EditCategory(int ID)
         {
-            return View(new Category { ID = ID });
+            var category = await _category.GetCategoryById(ID);
+            return View(category);
         }
 
         [HttpPost]
         [Authorize(Policy = "update", Roles = "User")]
         public async Task<IActionResult> EditCategory(Category category, int ID,IFormFile file)
         {
-            await _addImage.uploadImage(file,category);
+            if (file != null)
+            {
+                await _addImage.UploadImage(file, category);
+            }
             await _category.UpdateCategory(category, ID);
 
-            return View(category);
+            return RedirectToAction("CategoryDetails", new { category.ID});
         }
         [Authorize(Roles ="Admin")]
         public IActionResult AddCategory()
@@ -56,7 +60,7 @@ namespace E_Commerce_App.Controllers
         public async Task<IActionResult> AddCategory(Category category)
         {
             await _category.CreateCategory(category);
-            return View(category);
+            return RedirectToAction("Index", "Category");
         }
 
         //[HttpGet]
